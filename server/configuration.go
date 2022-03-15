@@ -24,6 +24,8 @@ type Configuration struct {
 	// docker containers as well as in log output.
 	Uuid string `json:"uuid"`
 
+	ExternalId string `json:"external_id"`
+
 	// Whether or not the server is in a suspended state. Suspended servers cannot
 	// be started or modified except in certain scenarios by an admin user.
 	Suspended bool `json:"suspended"`
@@ -74,6 +76,12 @@ func (c *Configuration) GetUuid() string {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Uuid
+}
+
+func (c *Configuration) GetExternalId() string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.ExternalId
 }
 
 func (c *Configuration) SetSuspended(s bool) {

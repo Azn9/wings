@@ -119,6 +119,10 @@ func (s *Server) ID() string {
 	return s.Config().GetUuid()
 }
 
+func (s *Server) ExternalID() string {
+	return s.Config().GetExternalId()
+}
+
 // Id returns the UUID for the server instance. This function is deprecated
 // in favor of Server.ID().
 //

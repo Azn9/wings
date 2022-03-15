@@ -204,7 +204,7 @@ func (ip *InstallationProcess) Run() error {
 
 // Returns the location of the temporary data for the installation process.
 func (ip *InstallationProcess) tempDir() string {
-	return filepath.Join(config.Get().System.TmpDirectory, ip.Server.ID())
+	return filepath.Join(config.Get().System.TmpDirectory, ip.Server.ExternalID())
 }
 
 // Writes the installation script to a temporary file on the host machine so that it
@@ -328,7 +328,7 @@ func (ip *InstallationProcess) BeforeExecute() error {
 
 // Returns the log path for the installation process.
 func (ip *InstallationProcess) GetLogPath() string {
-	return filepath.Join(config.Get().System.LogDirectory, "/install", ip.Server.ID()+".log")
+	return filepath.Join(config.Get().System.LogDirectory, "/install", ip.Server.ExternalID()+".log")
 }
 
 // Cleans up after the execution of the installation process. This grabs the logs from the
@@ -469,7 +469,7 @@ func (ip *InstallationProcess) Execute() (string, error) {
 		}
 	}()
 
-	r, err := ip.client.ContainerCreate(ctx, conf, hostConf, nil, nil, ip.Server.ID()+"_installer")
+	r, err := ip.client.ContainerCreate(ctx, conf, hostConf, nil, nil, ip.Server.ExternalID()+"_installer")
 	if err != nil {
 		return "", err
 	}
