@@ -212,7 +212,7 @@ func (ip *InstallationProcess) tempDir() string {
 func (ip *InstallationProcess) writeScriptToDisk() error {
 	// Make sure the temp directory root exists before trying to make a directory within it. The
 	// ioutil.TempDir call expects this base to exist, it won't create it for you.
-	if err := os.MkdirAll(ip.tempDir(), 0o700); err != nil {
+	if err := os.MkdirAll(ip.tempDir(), 0o770); err != nil {
 		return errors.WithMessage(err, "could not create temporary directory for install process")
 	}
 

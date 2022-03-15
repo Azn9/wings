@@ -390,7 +390,7 @@ func initConfig() {
 // in the code without having to pass around a logger instance.
 func initLogging() {
 	dir := config.Get().System.LogDirectory
-	if err := os.MkdirAll(path.Join(dir, "/install"), 0o700); err != nil {
+	if err := os.MkdirAll(path.Join(dir, "/install"), 0o770); err != nil {
 		log2.Fatalf("cmd/root: failed to create install directory path: %s", err)
 	}
 	p := filepath.Join(dir, "/wings.log")

@@ -273,7 +273,7 @@ func (s *Server) EnsureDataDirectoryExists() error {
 	if _, err := os.Lstat(s.fs.Path()); err != nil {
 		if os.IsNotExist(err) {
 			s.Log().Debug("server: creating root directory and setting permissions")
-			if err := os.MkdirAll(s.fs.Path(), 0o700); err != nil {
+			if err := os.MkdirAll(s.fs.Path(), 0o770); err != nil {
 				return errors.WithStack(err)
 			}
 			if err := s.fs.Chown("/"); err != nil {

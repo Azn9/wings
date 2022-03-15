@@ -471,7 +471,7 @@ func FromFile(path string) error {
 func ConfigureDirectories() error {
 	root := _config.System.RootDirectory
 	log.WithField("path", root).Debug("ensuring root data directory exists")
-	if err := os.MkdirAll(root, 0o700); err != nil {
+	if err := os.MkdirAll(root, 0o770); err != nil {
 		return err
 	}
 
@@ -492,17 +492,17 @@ func ConfigureDirectories() error {
 	}
 
 	log.WithField("path", _config.System.Data).Debug("ensuring server data directory exists")
-	if err := os.MkdirAll(_config.System.Data, 0o700); err != nil {
+	if err := os.MkdirAll(_config.System.Data, 0o770); err != nil {
 		return err
 	}
 
 	log.WithField("path", _config.System.ArchiveDirectory).Debug("ensuring archive data directory exists")
-	if err := os.MkdirAll(_config.System.ArchiveDirectory, 0o700); err != nil {
+	if err := os.MkdirAll(_config.System.ArchiveDirectory, 0o770); err != nil {
 		return err
 	}
 
 	log.WithField("path", _config.System.BackupDirectory).Debug("ensuring backup data directory exists")
-	if err := os.MkdirAll(_config.System.BackupDirectory, 0o700); err != nil {
+	if err := os.MkdirAll(_config.System.BackupDirectory, 0o770); err != nil {
 		return err
 	}
 
