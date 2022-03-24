@@ -219,6 +219,8 @@ func (s *Server) SyncWithConfiguration(cfg remote.ServerConfigurationResponse) e
 		return errors.WithStackIf(err)
 	}
 
+	s.Log().Info("ExID:" + c.ExternalId)
+
 	s.cfg.mu.Lock()
 	defer s.cfg.mu.Unlock()
 
