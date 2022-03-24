@@ -226,7 +226,7 @@ func (f *ConfigurationFile) Parse(path string, internal bool) error {
 // Parses an xml file.
 func (f *ConfigurationFile) parseXmlFile(path string) error {
 	doc := etree.NewDocument()
-	file, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR, 0o644)
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR, 0o664)
 	if err != nil {
 		return err
 	}
@@ -319,7 +319,7 @@ func (f *ConfigurationFile) parseIniFile(path string) error {
 	// Ini package can't handle a non-existent file, so handle that automatically here
 	// by creating it if not exists. Then, immediately close the file since we will use
 	// other methods to write the new contents.
-	file, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR, 0o644)
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR, 0o664)
 	if err != nil {
 		return err
 	}
@@ -406,7 +406,7 @@ func (f *ConfigurationFile) parseJsonFile(path string) error {
 	}
 
 	output := []byte(data.StringIndent("", "    "))
-	return os.WriteFile(path, output, 0o644)
+	return os.WriteFile(path, output, 0o664)
 }
 
 // Parses a yaml file and updates any matching key/value pairs before persisting
@@ -443,7 +443,7 @@ func (f *ConfigurationFile) parseYamlFile(path string) error {
 		return err
 	}
 
-	return os.WriteFile(path, marshaled, 0o644)
+	return os.WriteFile(path, marshaled, 0o664)
 }
 
 // Parses a text file using basic find and replace. This is a highly inefficient method of
@@ -468,7 +468,7 @@ func (f *ConfigurationFile) parseTextFile(path string) error {
 		}
 	}
 
-	if err := os.WriteFile(path, []byte(strings.Join(lines, "\n")), 0o644); err != nil {
+	if err := os.WriteFile(path, []byte(strings.Join(lines, "\n")), 0o664); err != nil {
 		return err
 	}
 
@@ -564,7 +564,7 @@ func (f *ConfigurationFile) parsePropertiesFile(path string) error {
 	}
 
 	// Open the file for writing.
-	w, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o644)
+	w, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o664)
 	if err != nil {
 		return err
 	}

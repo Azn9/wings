@@ -85,7 +85,7 @@ func (fs *Filesystem) Touch(p string, flag int) (*os.File, error) {
 	if err != nil {
 		return nil, err
 	}
-	f, err := os.OpenFile(cleaned, flag, 0o644)
+	f, err := os.OpenFile(cleaned, flag, 0o664)
 	if err == nil {
 		return f, nil
 	}
@@ -107,7 +107,7 @@ func (fs *Filesystem) Touch(p string, flag int) (*os.File, error) {
 	o := &fileOpener{}
 	// Try to open the file now that we have created the pathing necessary for it, and then
 	// Chown that file so that the permissions don't mess with things.
-	f, err = o.open(cleaned, flag, 0o644)
+	f, err = o.open(cleaned, flag, 0o664)
 	if err != nil {
 		return nil, errors.Wrap(err, "server/filesystem: touch: failed to open file with wait")
 	}

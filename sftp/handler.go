@@ -146,7 +146,7 @@ func (h *Handler) Filecmd(request *sftp.Request) error {
 		mode := request.Attributes().FileMode().Perm()
 		// If the client passes an invalid FileMode just use the default 0644.
 		if mode == 0o000 {
-			mode = os.FileMode(0o644)
+			mode = os.FileMode(0o664)
 		}
 		// Force directories to be 0755.
 		if request.Attributes().FileMode().IsDir() {
