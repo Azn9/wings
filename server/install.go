@@ -469,7 +469,7 @@ func (ip *InstallationProcess) Execute() (string, error) {
 		}
 	}()
 
-	r, err := ip.client.ContainerCreate(ctx, conf, hostConf, nil, nil, ip.Server.ExternalID()+"_installer")
+	r, err := ip.client.ContainerCreate(ctx, conf, hostConf, nil, nil, ip.Server.ID()+"_installer")
 	if err != nil {
 		return "", err
 	}
