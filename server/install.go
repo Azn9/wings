@@ -31,11 +31,9 @@ import (
 // Pass true as the first argument in order to execute a server sync before the
 // process to ensure the latest information is used.
 func (s *Server) Install(sync bool) error {
-	if sync {
-		s.Log().Info("syncing server state with remote source before executing installation process")
-		if err := s.Sync(); err != nil {
-			return errors.WrapIf(err, "install: failed to sync server state with Panel")
-		}
+	s.Log().Info("syncing server state with remote source before executing installation process")
+	if err := s.Sync(); err != nil {
+		return errors.WrapIf(err, "install: failed to sync server state with Panel")
 	}
 
 	var err error
