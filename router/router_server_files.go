@@ -37,6 +37,15 @@ func getServerFileContents(c *gin.Context) {
 		return
 	}
 	defer f.Close()
+	// Don't allow a named pipe to be opened.
+	//
+	// @see https://github.com/pterodactyl/panel/issues/4059
+	if st.Mode()&os.ModeNamedPipe != 0 {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": "Cannot open files of this type.",
+		})
+		return
+	}
 
 	c.Header("X-Mime-Type", st.Mimetype)
 	c.Header("Content-Length", strconv.Itoa(int(st.Size())))
@@ -122,6 +131,10 @@ func putServerRenameFiles(c *gin.Context) {
 					// Return nil if the error is an is not exists.
 					// NOTE: os.IsNotExist() does not work if the error is wrapped.
 					if errors.Is(err, os.ErrNotExist) {
+						s.Log().WithField("error", err).
+							WithField("from_path", pf).
+							WithField("to_path", pt).
+							Warn("failed to rename: source or target does not exist")
 						return nil
 					}
 					return err
